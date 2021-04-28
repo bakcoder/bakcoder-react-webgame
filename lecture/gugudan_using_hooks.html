@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>구구단</title>
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            // const GuGuDan = () => { // functional component, setState나 ref를 쓰지 않을 경우 사용
+            //     return <div> Hello, Hooks </div>;
+            // }
+            
+            // Hooks는 렌더링될 때 함수 전체가 refresh됨. 속도가 살짝 느려질 수 있음.
+            const GuGuDan = () => {
+                const [firstNumber, setFirstNumber] = React.useState(Math.ceil(Math.random() * 9));
+                const [secondNumber, setSecondNumber] = React.useState(Math.ceil(Math.random() * 9));
+                const [value, setValue] = React.useState('');
+                const [result, setResult] = React.useState('');
+
+                const inputRef = React.useRef(null);
+
+                const onChangeInput = (e) => {
+                    setValue(e.target.value);
+                }
+
+                const onRefInput = (ref) => {
+                    input = ref;
+                }
+
+                const onSubmitForm = (e) => {
+                    e.preventDefault();
+                    if (parseInt(value) === firstNumber * secondNumber) {
+                        setFirstNumber(Math.ceil(Math.random() * 9));
+                        setSecondNumber(Math.ceil(Math.random() * 9));
+                        setResult((prevResult) => {
+                            return '정답: ' + value;
+                        });
+                        setValue('');
+                        inputRef.current.focus();
+                    } else {
+                        setFirstNumber(Math.ceil(Math.random() * 9));
+                        setSecondNumber(Math.ceil(Math.random() * 9));
+                        setResult('땡');
+                        setValue('');
+                        inputRef.current.focus();
+                    }
+                }
+                console.log('render');
+                return (
+                    <React.Fragment>
+                        <div>{firstNumber} 곱하기 {secondNumber}은?</div>
+                        <form onSubmit={onSubmitForm}>
+                            <input ref={inputRef} onChange={onChangeInput} value={value}/>
+                            <button>입력</button>
+                        </form>
+                        <div id="result">{result}</div>
+                    </React.Fragment>
+                );
+            }
+        </script>
+        <script type="text/babel">
+            ReactDOM.render(<GuGuDan />, document.querySelector('#root'));
+        </script>
+    </body>
+</html>
