@@ -26,10 +26,6 @@
                     setValue(e.target.value);
                 }
 
-                const onRefInput = (ref) => {
-                    input = ref;
-                }
-
                 const onSubmitForm = (e) => {
                     e.preventDefault();
                     if (parseInt(value) === firstNumber * secondNumber) {
@@ -48,7 +44,7 @@
                         inputRef.current.focus();
                     }
                 }
-                console.log('render');
+                
                 return (
                     <React.Fragment>
                         <div>{firstNumber} 곱하기 {secondNumber}은?</div>
