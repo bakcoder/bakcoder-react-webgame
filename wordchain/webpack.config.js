@@ -1,8 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-    name: 'gugudan-setting',
+    name: 'wordchain-setting',
     mode: 'development',
     devtool: 'eval',
     resolve: {
@@ -25,14 +26,20 @@ module.exports = {
                     }],
                     '@babel/preset-react'
                 ],
+                plugins: ['@babel/plugin-proposal-class-properties', 'react-refresh/babel']
             }
         }]
     },
     plugins: [
         new webpack.LoaderOptionsPlugin({ debug: true }),
+        new ReactRefreshWebpackPlugin(),
     ],
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'app.js',
+    },
+    devServer: {
+        publicPath: '/dist/',
+        hot: true
     }
 }
