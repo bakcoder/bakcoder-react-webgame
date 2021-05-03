@@ -60,9 +60,14 @@ const NumberBaseball = () => {
     };
 
     const onChangeInput = (e) => {
-        e.preventDefault();
-        if(!value.includes(e.nativeEvent.data)) {
-            setValue(value + e.nativeEvent.data)    
+        if(e.nativeEvent.data != null) {
+            e.preventDefault();
+            if(!value.includes(e.nativeEvent.data)) {
+                setValue(value + e.nativeEvent.data)    
+            }
+        } else {
+            const deletedValue = value.substring(0, value.length-1);
+            setValue(deletedValue);
         }
     };
 
